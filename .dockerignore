@@ -1,5 +1,6 @@
 .venv/
 tests/
+requirements-dev.txt
 .git/
 __pycache__/
 .pytest_cache/
