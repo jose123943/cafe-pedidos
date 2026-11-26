@@ -4,6 +4,8 @@ API de una cafetería que calcula subtotales, descuentos y totales en pesos colo
 
 Repositorio público del equipo. [jose123943/cafe-pedidos](https://github.com/jose123943/cafe-pedidos)
 
+Puedes probar la API publicada desde Swagger. [Swagger en Render](https://cafe-pedidos-ltpz.onrender.com/docs)
+
 ## Equipo
 
 | Nombre | Rol | Responsabilidad |
@@ -108,7 +110,7 @@ Uvicorn escucha en `0.0.0.0` dentro del contenedor. `PORT` define el puerto de e
 
 3. En Render, abre **New → Web Service** y conecta el repositorio mediante tu cuenta de GitHub. Selecciona la rama `main`, el runtime **Docker**, el plan **Free** y el **Health Check Path** `/health`. En **Settings**, configura **Auto-Deploy → Off**, guarda el **Deploy Hook** y comprueba que `/health` devuelva `UP`. [Web Services en Render](https://render.com/docs/web-services)
 
-4. En GitHub, abre **Settings → Secrets and variables → Actions**. En **Secrets**, guarda el Deploy Hook como `RENDER_DEPLOY_HOOK_URL`. En **Variables**, crea `APP_URL` con la URL HTTPS pública del servicio, por ejemplo `https://TU-SERVICIO.onrender.com`. El primer push de la base puede intentar ejecutar CD antes de que existan estos valores. [Deploy Hooks en Render](https://render.com/docs/deploy-hooks)
+4. En GitHub, abre **Settings → Secrets and variables → Actions**. En **Secrets**, guarda el Deploy Hook como `RENDER_DEPLOY_HOOK_URL`. En **Variables**, guarda la URL base `https://cafe-pedidos-ltpz.onrender.com` como `APP_URL`. El primer push de la base puede intentar ejecutar CD antes de que existan estos valores. [Deploy Hooks en Render](https://render.com/docs/deploy-hooks)
 
 5. Cuando otra persona apruebe e integre la preparación, abre **Actions → CD** y comprueba que el job de despliegue terminó en verde. Cada push a `main` reutiliza `ci.yml`, y `needs: pruebas` impide solicitar un despliegue con pruebas fallidas. CD envía el SHA probado a Render y espera hasta diez minutos a que `/info` muestre ese SHA, `/health` devuelva `UP` y `/api/menu` entregue el catálogo. [Despliegue de un commit en Render](https://render.com/docs/deploys#deploying-a-specific-commit)
 
