@@ -21,11 +21,12 @@ def ver_menu():
 
 
 @app.post("/api/pedidos/total")
-def calcular_total(items: list[ItemPedido]):
+def calcular_total(items: list[ItemPedido], cupon: str | None = None):
+    pedido = [Item(item.codigo, item.cantidad) for item in items]
     try:
-        return calculadora.calcular([Item(i.codigo, i.cantidad) for i in items])
+        return calculadora.calcular(pedido, cupon=cupon)
     except PedidoInvalido as error:
-        raise HTTPException(status_code=400, detail=str(error))
+        raise HTTPException(status_code=400, detail=str(error)) from error
 
 
 @app.get("/health")
