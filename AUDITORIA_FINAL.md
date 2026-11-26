@@ -1,6 +1,8 @@
 # Auditoría final · Café La Montaña
 
-Verificación local del 26 de noviembre de 2026. La rama `integracion/sprint` reúne la preparación, las tres historias y las pruebas HTTP. `main` apunta a la importación de `cafe-pedidos.zip` en `81ef0d5`. Las ramas de cada historia se conservan para abrir los PR y los commits locales están identificados como Codex.
+Verificación del 26 de noviembre de 2026. En el ensayo local, `integracion/sprint` reúne la preparación, las tres historias y las pruebas HTTP. El commit `81ef0d5` contiene la importación de `cafe-pedidos.zip` que sirvió de base. Las ramas de cada historia se conservan para abrir los PR y los commits de preparación automatizada están identificados como Codex.
+
+En GitHub, Endy revisó, comentó e integró el PR de preparación. El CD verificó en Render el commit de merge `fc0d6e3` 58 segundos después de la integración. La rama de QA se actualizó con ese `main` y la suite local repitió los seis fallos esperados de integración. [PR de preparación](https://github.com/jose123943/cafe-pedidos/pull/1) · [CD de ese commit](https://github.com/jose123943/cafe-pedidos/actions/runs/45873428249)
 
 ## Base y alcance
 
@@ -44,11 +46,11 @@ La salida original del merge está en `reportes/merge-r6.txt` en la copia local.
 
 | Área | Resultado comprobado en local | Pendiente en la plataforma |
 | --- | --- | --- |
-| CI | Configurado para PR hacia `main`, job `Pruebas`, dependencias de desarrollo y reporte JUnit con `always()`. La suite devolvió código 1 en las ejecuciones rojas y 0 en las verdes. | Ejecutar el check en GitHub e incluirlo como obligatorio en la protección de `main`. |
-| CD | Trigger de push a `main`, reutilización de CI con `needs: pruebas` y despliegue con `GITHUB_SHA`. Se comprobó el POST con un hook local emulado, el rechazo de un SHA distinto y el reintento tras recibir HTTP 503 en un arranque en frío emulado. | Configurar el secreto y la variable, ejecutar CD en GitHub y comprobar el SHA publicado en Render. |
+| CI | Configurado para PR hacia `main`, job `Pruebas`, dependencias de desarrollo y reporte JUnit con `always()`. La suite devolvió código 1 en las ejecuciones rojas y 0 en las verdes. | El PR de preparación pasó `Pruebas` y `main` lo exige junto con una aprobación. Quedan los checks de las tres historias y del PR de QA. |
+| CD | Trigger de push a `main`, reutilización de CI con `needs: pruebas` y despliegue con `GITHUB_SHA`. Se comprobó el POST con un hook local emulado, el rechazo de un SHA distinto y el reintento tras recibir HTTP 503 en un arranque en frío emulado. | GitHub Actions desplegó la preparación con el secreto y la variable configurados. Queda verificar el SHA del sprint completo en Render. |
 | Docker | `docker build --check .` sin advertencias y `docker build --tag cafe-pedidos:sprint-local .` exitoso. La API respondió en 8000 y con `PORT=9876`. Se comprobó el UID 10001 y la imagen sin pytest ni la carpeta `tests/`. | Construir desde el Git SHA en el Web Service de Render. |
 | API en contenedor | `/health`, `/info`, `/api/menu`, `/docs` y el parámetro opcional `cupon` en OpenAPI. Se comprobó el precio del día de Bogotá, un pedido de 50.000 COP con cupón y los HTTP 400 por cupón o cantidad inválidos. | Ejecutar la demo y guardar evidencias desde `/docs` en producción. |
-| Seguridad | Token de Actions con `contents: read`, checkout sin persistencia de credenciales y hook mediante secreto. `pip check` pasó y `pip-audit -r requirements.txt` no reportó vulnerabilidades conocidas en las dependencias de producción analizadas. | Guardar el hook y `APP_URL` en la configuración del repositorio correcto. |
+| Seguridad | Token de Actions con `contents: read`, checkout sin persistencia de credenciales y hook mediante secreto. `pip check` pasó y `pip-audit -r requirements.txt` no reportó vulnerabilidades conocidas en las dependencias de producción analizadas. | El hook y `APP_URL` se guardaron en la configuración de GitHub Actions. |
 
 `actionlint` 1.7.12 encuentra una única discrepancia de sintaxis porque su esquema aún no conoce `concurrency.queue`. Se comprobó `queue: max` con el esquema actualizado y la documentación de GitHub, y se ejecutó `actionlint` con esa excepción puntual. `bash -n` validó ambos pasos de despliegue. El smoke ejecutado en local verificó `/info`, `/health` y `/api/menu` con el SHA `b1f60599507237d85c8808b94f54d84f0096bad2` configurado en el contenedor. La prueba negativa usó un plazo de 3 segundos. El workflow usa 10 minutos. Los resultados están en `reportes/docker-y-cd-local.txt`, `reportes/pytest-linux.txt`, `reportes/pip-audit.txt` y `reportes/workflows-actionlint.txt` en la copia local. [Concurrencia en GitHub Actions](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency)
 
@@ -63,4 +65,4 @@ La salida original del merge está en `reportes/merge-r6.txt` en la copia local.
 
 Cada integrante acredita 3 puntos con un PR propio integrado y 2 con una revisión con comentario en el PR de otra persona. El integrador abre R6, revisa R4 y configura GitHub y Render. Desarrollo 1 abre R4 y revisa R5 y el PR de QA. Desarrollo 2 abre R5 y revisa R6. QA/PO abre el PR de integración, revisa las pruebas de las historias y conduce la demo. Cada autor hace sus acciones desde su cuenta y otra persona integra su PR.
 
-Quedan pendientes los datos y evidencias de GitHub y Render, las revisiones humanas, el tag `v1.1.0` y la entrega en Moodle. Los pasos de publicación están en [README.md](README.md) y los espacios de evidencia en [ENTREGA_MOODLE.md](ENTREGA_MOODLE.md).
+Quedan pendientes la integración y las revisiones humanas de las tres historias y de QA, las capturas de GitHub Actions, el tag `v1.1.0` y la entrega en Moodle. Los pasos de publicación están en [README.md](README.md) y los espacios de evidencia en [ENTREGA_MOODLE.md](ENTREGA_MOODLE.md).
