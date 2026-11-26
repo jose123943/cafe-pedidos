@@ -2,14 +2,16 @@
 
 API de una cafetería que calcula subtotales, descuentos y totales en pesos colombianos. El sprint incorpora la promoción del martes, el cupón `CAFE10` y el límite por producto. El proyecto usa Python, FastAPI, pytest, GitHub Actions, Docker y Render.
 
+Repositorio público del equipo. [jose123943/cafe-pedidos](https://github.com/jose123943/cafe-pedidos)
+
 ## Equipo
 
 | Nombre | Rol | Responsabilidad |
 | --- | --- | --- |
-| [Nombre del integrante 1] | Integrador / DevOps | R6, repositorio, protección de `main`, CI/CD y Render |
-| [Nombre del integrante 2] | Desarrollador 1 | R4 y revisión de R5 |
-| [Nombre del integrante 3] | Desarrollador 2 | R5 y revisión de R6 |
-| [Nombre del integrante 4] | QA/PO | Issues, pruebas de integración, verificación en producción y demo |
+| Jose David Perea | Integrador / DevOps | R6, repositorio, protección de `main`, CI/CD y Render |
+| Luis Alejandro Ariza | Desarrollador 1 | R4 y revisión de R5 |
+| Endy Josue Parody | Desarrollador 2 | R5 y revisión de R6 |
+| Alex Cardona Ocampo | QA/PO | Issues, pruebas de integración, verificación en producción y demo |
 
 ## Arquitectura
 
@@ -95,10 +97,9 @@ Uvicorn escucha en `0.0.0.0` dentro del contenedor. `PORT` define el puerto de e
 
 ## Configurar GitHub y Render
 
-1. El integrador crea un repositorio **público y vacío** en GitHub e invita a los tres integrantes. En el repositorio local, añade `origin` con la URL real y sube la base y la rama de preparación.
+1. El integrador crea un repositorio **público y vacío** en GitHub e invita a los tres integrantes. Vincula una copia local nueva con `git remote add origin https://github.com/jose123943/cafe-pedidos.git`. Si `origin` ya existe, verifica su URL con `git remote -v` y corrígela con `git remote set-url origin https://github.com/jose123943/cafe-pedidos.git` cuando haga falta. Sube la base y la rama de preparación.
 
    ```bash
-   git remote add origin https://github.com/ORGANIZACION/cafe-pedidos.git
    git push -u origin main
    git push -u origin chore/preparacion-sprint
    ```
