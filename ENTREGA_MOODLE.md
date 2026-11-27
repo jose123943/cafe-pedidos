@@ -25,7 +25,7 @@
 
 En el PR de R6, el check obligatorio `Pruebas` quedó en rojo con 2 fallos y 15 pruebas correctas en el commit `de4268d`. Los dos casos comprobaron el rechazo de once unidades de un producto. [PR de R6](https://github.com/jose123943/cafe-pedidos/pull/5) · [Pruebas en rojo](https://github.com/jose123943/cafe-pedidos/actions/runs/46043974732/job/140658477247)
 
-[Pegar aquí la captura del PR #5 con `Pruebas` en rojo y el bloqueo de merge visible.]
+Adjuntar la captura del PR #5 en la pestaña Checks, guardada en `reportes/evidencias/pr-5-r6-en-rojo.png` en la copia local. GitHub registró el estado `blocked` para ese commit. La captura complementaria de la ejecución de Actions está en `reportes/evidencias/ci-r6-rojo.png`.
 
 ## Retrospectiva
 

@@ -4,9 +4,11 @@ Verificación del 26 de noviembre de 2026. En el ensayo local, `integracion/spri
 
 En GitHub, Endy revisó, comentó e integró el PR de preparación. El CD verificó en Render el commit de merge `fc0d6e3` 58 segundos después de la integración. La rama de QA se actualizó con ese `main` y la suite local repitió los seis fallos esperados de integración. [PR de preparación](https://github.com/jose123943/cafe-pedidos/pull/1) · [CD de ese commit](https://github.com/jose123943/cafe-pedidos/actions/runs/45873428249)
 
-El integrador publicó los Issues de R4, R5 y R6 durante la ausencia de QA/PO. En el PR #5, vinculado al Issue #4, GitHub ejecutó el commit de pruebas de R6 actualizado con `main`. `Pruebas` registró 2 fallos y 15 casos correctos, y el estado de merge fue `blocked`. El informe JUnit se descargó a `reportes/evidencias/junit-pr-5-rojo/pruebas.xml` en la copia local. [PR de R6](https://github.com/jose123943/cafe-pedidos/pull/5) · [Pruebas en rojo](https://github.com/jose123943/cafe-pedidos/actions/runs/46043974732/job/140658477247)
+El integrador publicó los Issues de R4, R5 y R6 durante la ausencia de QA/PO. En el PR #5, vinculado al Issue #4, GitHub ejecutó el commit de pruebas de R6 actualizado con `main`. `Pruebas` registró 2 fallos y 15 casos correctos, y el estado de merge fue `blocked`. La pestaña Checks del PR se guardó como `reportes/evidencias/pr-5-r6-en-rojo.png` y el informe JUnit se descargó a `reportes/evidencias/junit-pr-5-rojo/pruebas.xml`. Ambos están en la copia local. [PR de R6](https://github.com/jose123943/cafe-pedidos/pull/5) · [Pruebas en rojo](https://github.com/jose123943/cafe-pedidos/actions/runs/46043974732/job/140658477247)
 
 ## Base y alcance
+
+La implementación de R6 pasó 17 pruebas en GitHub Actions en el PR #5, después de guardar la evidencia roja. [Check verde de R6](https://github.com/jose123943/cafe-pedidos/actions/runs/46044969019/job/140661817473)
 
 El ZIP disponible trae 12 pruebas, cuatro de ellas de la promoción del martes que ya incluye el código base. Se ejecutaron las 12 y, en una segunda ejecución, se seleccionaron las ocho de R1 a R3, incluidas las dos pruebas HTTP originales. Todas pasaron. Los casos originales siguen en la suite. El ciclo de R4 verifica un fallo adicional de la promoción existente. Dos líneas de un pedido podían recibir precios de días distintos si el cálculo cruzaba la medianoche en Bogotá.
 
