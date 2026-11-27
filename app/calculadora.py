@@ -6,6 +6,8 @@ from zoneinfo import ZoneInfo
 from app import menu
 
 UMBRAL_DESCUENTO = 50_000
+CODIGO_CUPON = "CAFE10"
+DESCUENTO_CUPON = 10_000
 CAFE_DE_LA_CASA = "CAFE_CASA"
 MARTES = 1  # date.weekday(): lunes = 0, martes = 1
 
@@ -35,7 +37,7 @@ class CalculadoraPedido:
     def __init__(self, hoy: Callable[[], date] = hoy_en_bogota):
         self.hoy = hoy
 
-    def calcular(self, items: list[Item]) -> Resumen:
+    def calcular(self, items: list[Item], cupon: str | None = None) -> Resumen:
         if not items:
             raise PedidoInvalido("El pedido no tiene productos")
         es_martes = self.hoy().weekday() == MARTES
@@ -48,6 +50,10 @@ class CalculadoraPedido:
                 raise PedidoInvalido(f"No existe el producto {item.codigo}")
             subtotal += self._precio_del_dia(producto, es_martes) * item.cantidad
         descuento = subtotal // 10 if subtotal >= UMBRAL_DESCUENTO else 0
+        if cupon is not None:
+            if cupon != CODIGO_CUPON:
+                raise PedidoInvalido("Cupón inválido")
+            descuento += min(DESCUENTO_CUPON, subtotal - descuento)
         return Resumen(subtotal, descuento, subtotal - descuento)
 
     @staticmethod
