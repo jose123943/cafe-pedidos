@@ -19,7 +19,9 @@
 
 ### Último despliegue CD exitoso
 
-[Pegar aquí la captura del run verde de CD con el SHA desplegado y el paso de prueba de humo.]
+El CD de preparación publicó `fc0d6e3` en Render y pasó la prueba de humo. El resumen de GitHub Actions muestra las pruebas y el despliegue en verde. [Captura del CD de preparación](docs/evidencias/cd-preparacion-verde.png) · [Prueba de humo](https://github.com/jose123943/cafe-pedidos/actions/runs/45873428249/job/140094544760)
+
+[Pegar aquí la captura del CD del sprint completo después de integrar QA, con el SHA desplegado y la prueba de humo en verde.]
 
 ### PR bloqueado por pruebas fallidas
 

@@ -2,7 +2,7 @@
 
 Verificación del 26 de noviembre de 2026. En el ensayo local, `integracion/sprint` reúne la preparación, las tres historias y las pruebas HTTP. El commit `81ef0d5` contiene la importación de `cafe-pedidos.zip` que sirvió de base. Las ramas de cada historia se conservan para abrir los PR y los commits de preparación automatizada están identificados como Codex.
 
-En GitHub, Endy revisó, comentó e integró el PR de preparación. El CD verificó en Render el commit de merge `fc0d6e3` 58 segundos después de la integración. La rama de QA se actualizó con ese `main` y la suite local repitió los seis fallos esperados de integración. [PR de preparación](https://github.com/jose123943/cafe-pedidos/pull/1) · [CD de ese commit](https://github.com/jose123943/cafe-pedidos/actions/runs/45873428249)
+En GitHub, Endy revisó, comentó e integró el PR de preparación. El CD verificó en Render el commit de merge `fc0d6e3` 58 segundos después de la integración. La rama de QA se actualizó con ese `main` y la suite local repitió los seis fallos esperados de integración. [PR de preparación](https://github.com/jose123943/cafe-pedidos/pull/1) · [CD de ese commit](https://github.com/jose123943/cafe-pedidos/actions/runs/45873428249) · [Captura del CD de preparación](docs/evidencias/cd-preparacion-verde.png)
 
 El integrador publicó los Issues de R4, R5 y R6 durante la ausencia de QA/PO. En el PR #5, vinculado al Issue #4, GitHub ejecutó el commit de pruebas de R6 actualizado con `main`. `Pruebas` registró 2 fallos y 15 casos correctos, y el estado de merge fue `blocked`. El borrador de Moodle incorpora la captura original de la pestaña Checks. El informe JUnit está en `reportes/evidencias/junit-pr-5-rojo/pruebas.xml` en la copia local. [Captura](docs/evidencias/pr-5-r6-en-rojo.png) · [PR de R6](https://github.com/jose123943/cafe-pedidos/pull/5) · [Pruebas en rojo](https://github.com/jose123943/cafe-pedidos/actions/runs/46043974732/job/140658477247)
 
@@ -83,4 +83,4 @@ Cada integrante acredita 3 puntos con un PR propio integrado y 2 con una revisi�
 
 El historial registra el PR de preparación de José ya integrado y una revisión con comentario de Endy sobre ese PR. [PR de preparación](https://github.com/jose123943/cafe-pedidos/pull/1) · [Revisión de Endy](https://github.com/jose123943/cafe-pedidos/pull/1#pullrequestreview-6078780761)
 
-Quedan pendientes la integración y las revisiones humanas de las tres historias y de QA, las capturas de GitHub Actions, el tag `v1.1.0` y la entrega en Moodle. Los pasos de publicación están en [README.md](README.md) y los espacios de evidencia en [ENTREGA_MOODLE.md](ENTREGA_MOODLE.md).
+Quedan pendientes la integración y las revisiones humanas de las tres historias y de QA, la captura del CD del sprint completo, el tag `v1.1.0` y la entrega en Moodle. Los pasos de publicación están en [README.md](README.md) y los espacios de evidencia en [ENTREGA_MOODLE.md](ENTREGA_MOODLE.md).
