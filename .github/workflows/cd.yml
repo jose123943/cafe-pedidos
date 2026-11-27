@@ -4,41 +4,69 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+
 concurrency:
   group: despliegue-produccion
+  queue: max
   cancel-in-progress: false
 
 jobs:
   pruebas:
+    name: Validar commit
     uses: ./.github/workflows/ci.yml
 
   desplegar:
     name: Desplegar en Render
     needs: pruebas
     runs-on: ubuntu-latest
+    timeout-minutes: 12
     environment:
       name: produccion
       url: ${{ vars.APP_URL }}
+    env:
+      APP_URL: ${{ vars.APP_URL }}
     steps:
       - name: Pedir a Render que despliegue este commit
         env:
           DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
-        run: curl --fail --silent --show-error -X POST "${DEPLOY_HOOK}&ref=${GITHUB_SHA}"
+        shell: bash
+        run: |
+          if [[ -z "$DEPLOY_HOOK" || -z "$APP_URL" ]]; then
+            echo "::error::Configura RENDER_DEPLOY_HOOK_URL y APP_URL antes de desplegar."
+            exit 1
+          fi
+          if ! curl --fail --silent --connect-timeout 10 --max-time 30 \
+            --output /dev/null --request POST --url-query "ref=$GITHUB_SHA" "$DEPLOY_HOOK"; then
+            echo "::error::Render no aceptó la solicitud de despliegue."
+            exit 1
+          fi
 
       - name: Prueba de humo
-        env:
-          APP_URL: ${{ vars.APP_URL }}
+        shell: bash
         run: |
-          for intento in $(seq 1 40); do
-            commit=$(curl --silent --max-time 60 "$APP_URL/info" | jq -r '.commit // empty' || true)
-            if [ "$commit" = "$GITHUB_SHA" ]; then
-              echo "Versión $GITHUB_SHA en línea"
-              curl --fail --silent "$APP_URL/health"
-              curl --fail --silent --output /dev/null "$APP_URL/api/menu"
+          limite=$((SECONDS + 600))
+
+          obtener() {
+            local restantes=$((limite - SECONDS))
+            (( restantes > 0 )) || return 1
+            curl --fail --silent --connect-timeout 10 \
+              --max-time "$((restantes < 70 ? restantes : 70))" "${APP_URL%/}$1"
+          }
+
+          while (( SECONDS < limite )); do
+            if obtener /info | jq -e --arg commit "$GITHUB_SHA" '.commit == $commit' >/dev/null &&
+               obtener /health | jq -e '.status == "UP"' >/dev/null &&
+               obtener /api/menu | jq -e 'type == "array" and any(.[]; .codigo == "TINTO" and .precio == 3000)' >/dev/null; then
+              echo "Versión $GITHUB_SHA verificada en /info, /health y /api/menu."
               exit 0
             fi
-            echo "Intento $intento: en producción está '${commit:-sin respuesta}'. Esperando 15 s..."
-            sleep 15
+            echo "Esperando el commit probado y respuestas válidas en los tres endpoints."
+            restantes=$((limite - SECONDS))
+            if (( restantes > 0 )); then
+              sleep "$((restantes < 15 ? restantes : 15))"
+            fi
           done
-          echo "La nueva versión no apareció en 10 minutos"
+          echo "::error::No se pudo verificar $GITHUB_SHA en un máximo de 10 minutos."
           exit 1
