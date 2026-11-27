@@ -4,7 +4,7 @@ Verificación del 26 de noviembre de 2026. En el ensayo local, `integracion/spri
 
 En GitHub, Endy revisó, comentó e integró el PR de preparación. El CD verificó en Render el commit de merge `fc0d6e3` 58 segundos después de la integración. La rama de QA se actualizó con ese `main` y la suite local repitió los seis fallos esperados de integración. [PR de preparación](https://github.com/jose123943/cafe-pedidos/pull/1) · [CD de ese commit](https://github.com/jose123943/cafe-pedidos/actions/runs/45873428249)
 
-El integrador publicó los Issues de R4, R5 y R6 durante la ausencia de QA/PO. En el PR #5, vinculado al Issue #4, GitHub ejecutó el commit de pruebas de R6 actualizado con `main`. `Pruebas` registró 2 fallos y 15 casos correctos, y el estado de merge fue `blocked`. La pestaña Checks del PR se guardó como `reportes/evidencias/pr-5-r6-en-rojo.png` y el informe JUnit se descargó a `reportes/evidencias/junit-pr-5-rojo/pruebas.xml`. Ambos están en la copia local. [PR de R6](https://github.com/jose123943/cafe-pedidos/pull/5) · [Pruebas en rojo](https://github.com/jose123943/cafe-pedidos/actions/runs/46043974732/job/140658477247)
+El integrador publicó los Issues de R4, R5 y R6 durante la ausencia de QA/PO. En el PR #5, vinculado al Issue #4, GitHub ejecutó el commit de pruebas de R6 actualizado con `main`. `Pruebas` registró 2 fallos y 15 casos correctos, y el estado de merge fue `blocked`. El borrador de Moodle incorpora la captura original de la pestaña Checks. El informe JUnit está en `reportes/evidencias/junit-pr-5-rojo/pruebas.xml` en la copia local. [Captura](docs/evidencias/pr-5-r6-en-rojo.png) · [PR de R6](https://github.com/jose123943/cafe-pedidos/pull/5) · [Pruebas en rojo](https://github.com/jose123943/cafe-pedidos/actions/runs/46043974732/job/140658477247)
 
 ## Base y alcance
 
@@ -54,6 +54,8 @@ La rama local `integracion/ensayo-github` llegó a `9b24616` al añadir QA. Pasa
 
 En la copia local, `reportes/evidencias/ensayo-github-conflicto-r6.txt` contiene la salida original de Git. `reportes/evidencias/ensayo-github-solucion-r6.txt` conserva el diff de la resolución. `reportes/evidencias/ensayo-github-completo.xml` y `reportes/evidencias/ensayo-github-linux.xml` guardan los resultados de pytest.
 
+La comparación local con `git merge-tree --write-tree --name-only` combinó R4 `290d64d` con R5 `5a8657a` sin conflictos. Al combinar R6 `52314da` con cualquiera de esas ramas, Git marcó `app/calculadora.py`. El resultado sirve de base para discutir el orden de integración en la retrospectiva.
+
 En GitHub, Luis abre R4 con `Closes #2` y José revisa. Endy abre R5 con `Closes #3` y Luis revisa. Tras integrar R4 y R5, se actualiza R6 con el `main` de GitHub y Endy revisa su PR. Alex abre el PR de QA para la última integración. [R4](https://github.com/jose123943/cafe-pedidos/issues/2) · [R5](https://github.com/jose123943/cafe-pedidos/issues/3) · [PR de R6](https://github.com/jose123943/cafe-pedidos/pull/5)
 
 ## Verificación del pipeline y del contenedor
@@ -78,5 +80,7 @@ En GitHub, Luis abre R4 con `Closes #2` y José revisa. Endy abre R5 con `Closes
 | Proceso de equipo · 5 puntos | Historial `test` antes de `feat` y un conflicto real resuelto en el ensayo local. | Abrir los Issues y PR, obtener revisiones con comentarios y cerrar la retrospectiva. |
 
 Cada integrante acredita 3 puntos con un PR propio integrado y 2 con una revisión con comentario en el PR de otra persona. El integrador abre R6, revisa R4 y configura GitHub y Render. Desarrollo 1 abre R4 y revisa R5 y el PR de QA. Desarrollo 2 abre R5 y revisa R6. QA/PO abre el PR de integración, revisa las pruebas de las historias y conduce la demo. Cada autor hace sus acciones desde su cuenta y otra persona integra su PR.
+
+El historial registra el PR de preparación de José ya integrado y una revisión con comentario de Endy sobre ese PR. [PR de preparación](https://github.com/jose123943/cafe-pedidos/pull/1) · [Revisión de Endy](https://github.com/jose123943/cafe-pedidos/pull/1#pullrequestreview-6078780761)
 
 Quedan pendientes la integración y las revisiones humanas de las tres historias y de QA, las capturas de GitHub Actions, el tag `v1.1.0` y la entrega en Moodle. Los pasos de publicación están en [README.md](README.md) y los espacios de evidencia en [ENTREGA_MOODLE.md](ENTREGA_MOODLE.md).
