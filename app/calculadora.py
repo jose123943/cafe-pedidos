@@ -33,11 +33,12 @@ def hoy_en_bogota() -> date:
 
 class CalculadoraPedido:
     def __init__(self, hoy: Callable[[], date] = hoy_en_bogota):
-        self.hoy = hoy  # lo usaremos en la Parte 5
+        self.hoy = hoy
 
     def calcular(self, items: list[Item]) -> Resumen:
         if not items:
             raise PedidoInvalido("El pedido no tiene productos")
+        es_martes = self.hoy().weekday() == MARTES
         subtotal = 0
         for item in items:
             if item.cantidad < 1:
@@ -45,11 +46,12 @@ class CalculadoraPedido:
             producto = menu.buscar(item.codigo)
             if producto is None:
                 raise PedidoInvalido(f"No existe el producto {item.codigo}")
-            subtotal += self._precio_del_dia(producto) * item.cantidad
+            subtotal += self._precio_del_dia(producto, es_martes) * item.cantidad
         descuento = subtotal // 10 if subtotal >= UMBRAL_DESCUENTO else 0
         return Resumen(subtotal, descuento, subtotal - descuento)
 
-    def _precio_del_dia(self, producto: menu.Producto) -> int:
-        if self.hoy().weekday() == MARTES and producto.codigo == CAFE_DE_LA_CASA:
+    @staticmethod
+    def _precio_del_dia(producto: menu.Producto, es_martes: bool) -> int:
+        if es_martes and producto.codigo == CAFE_DE_LA_CASA:
             return producto.precio // 2
         return producto.precio
