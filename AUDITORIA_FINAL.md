@@ -46,6 +46,16 @@ git show --remerge-diff 2488c9b -- app/calculadora.py
 
 La salida original del merge está en `reportes/merge-r6.txt` en la copia local.
 
+## Ensayo con las ramas publicadas
+
+El 27 de noviembre se repitió la integración desde `origin/main` en `fc0d6e3`. Con R4 pasaron 15 pruebas y, al incorporar R5, pasaron 21. Git volvió a marcar `app/calculadora.py` al incorporar R6. Las dos versiones coincidían con las del ensayo anterior, así que se aplicó la resolución que conserva las constantes del cupón y el máximo, la fecha única de Bogotá y el conteo acumulado antes de sumar cada línea al subtotal. El commit local `36f1e3a` pasó 26 pruebas tras resolver el conflicto.
+
+La rama local `integracion/ensayo-github` llegó a `9b24616` al añadir QA. Pasaron 34 pruebas en Windows y 34 en Linux con Python 3.13.18. La cobertura de `app/` en Linux fue del 96 %. En la imagen de producción, se verificaron `/health`, `/info`, `/api/menu` y `/docs` en `PORT=10000`. Un pedido de 50.000 COP con `CAFE10` totalizó 35.000 COP, uno de 9.500 COP totalizó cero y seis más cinco tintos en líneas separadas devolvieron HTTP 400.
+
+En la copia local, `reportes/evidencias/ensayo-github-conflicto-r6.txt` contiene la salida original de Git. `reportes/evidencias/ensayo-github-solucion-r6.txt` conserva el diff de la resolución. `reportes/evidencias/ensayo-github-completo.xml` y `reportes/evidencias/ensayo-github-linux.xml` guardan los resultados de pytest.
+
+En GitHub, Luis abre R4 con `Closes #2` y José revisa. Endy abre R5 con `Closes #3` y Luis revisa. Tras integrar R4 y R5, se actualiza R6 con el `main` de GitHub y Endy revisa su PR. Alex abre el PR de QA para la última integración. [R4](https://github.com/jose123943/cafe-pedidos/issues/2) · [R5](https://github.com/jose123943/cafe-pedidos/issues/3) · [PR de R6](https://github.com/jose123943/cafe-pedidos/pull/5)
+
 ## Verificación del pipeline y del contenedor
 
 | Área | Resultado comprobado en local | Pendiente en la plataforma |
