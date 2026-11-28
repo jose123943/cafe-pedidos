@@ -56,7 +56,7 @@ En la copia local, `reportes/evidencias/ensayo-github-conflicto-r6.txt` contiene
 
 La comparación local con `git merge-tree --write-tree --name-only` combinó R4 `290d64d` con R5 `5a8657a` sin conflictos. Al combinar R6 `52314da` con cualquiera de esas ramas, Git marcó `app/calculadora.py`. El resultado sirve de base para discutir el orden de integración en la retrospectiva.
 
-El orden previsto para integrar es R4, R5, R6 y QA. Tras integrar R4 y R5, se actualiza R6 con el `main` de GitHub y se aplica la resolución de `app/calculadora.py` que pasó las pruebas en el ensayo. [Resolución del conflicto](https://github.com/jose123943/cafe-pedidos/commit/36f1e3ab70d702b7fb749d13d844926577f0610c)
+Tras integrar R4 y R5, se actualizó R6 con el `main` de GitHub. Git marcó de nuevo `app/calculadora.py`. El commit de resolución `2220db8` conserva las tres reglas y pasó 26 pruebas. [Resolución en el PR de R6](https://github.com/jose123943/cafe-pedidos/commit/2220db894622db47312d20ec8cfd22d1f7e304e6) · [CI](https://github.com/jose123943/cafe-pedidos/actions/runs/46169876946/job/141055661577)
 
 ## Verificación del pipeline y del contenedor
 
@@ -92,8 +92,8 @@ En el PR de QA se documentó la comprobación del máximo por producto en un ped
 | Historia | Estado de GitHub | Acción pendiente |
 | --- | --- | --- |
 | R4 | PR #11 de Luis, con 15 pruebas correctas, integrado y desplegado en Render en `8adf84b`. [PR de R4](https://github.com/jose123943/cafe-pedidos/pull/11) · [CD](https://github.com/jose123943/cafe-pedidos/actions/runs/46167296111) | Verificar la regla junto con R5 y R6 en la demo final. |
-| R5 | PR #10 con `Closes #3` y 21 pruebas correctas tras actualizarlo con R4. [PR de R5](https://github.com/jose123943/cafe-pedidos/pull/10) · [CI](https://github.com/jose123943/cafe-pedidos/actions/runs/46167504947/job/141048197861) | Luis recibió la solicitud de revisión. Queda aprobar e integrar el PR desde una cuenta distinta de la del autor. |
-| R6 | PR #5 abierto con `Pruebas` en verde. | Actualizarlo con `main` tras R4 y R5, y registrar la revisión de Endy. [PR de R6](https://github.com/jose123943/cafe-pedidos/pull/5) |
+| R5 | Luis aprobó y fusionó el PR #10 tras 21 pruebas correctas. Render verificó el commit `c5a3327`. [PR de R5](https://github.com/jose123943/cafe-pedidos/pull/10) · [CD](https://github.com/jose123943/cafe-pedidos/actions/runs/46169557746) | Comprobar el cupón junto con R4 y R6 en la demo final. |
+| R6 | El PR #5 se actualizó con R4 y R5 y pasó 26 pruebas. [PR de R6](https://github.com/jose123943/cafe-pedidos/pull/5) · [CI](https://github.com/jose123943/cafe-pedidos/actions/runs/46169876946/job/141055661577) | Endy recibió la solicitud de revisión. Queda aprobar e integrar el PR. |
 | QA | Alex abrió el Issue #6 y el PR #7, que incluye `Closes #6` y la prueba ampliada de R6. [PR de QA](https://github.com/jose123943/cafe-pedidos/pull/7) | Actualizar la rama tras las historias, verificar CI y obtener la aprobación. |
 
-Quedan pendientes la revisión e integración de R5, R6 y QA, la captura del CD del sprint completo, el tag `v1.1.0` y la entrega en Moodle. Los pasos de publicación están en [README.md](README.md) y la evidencia actual en [ENTREGA_MOODLE.md](ENTREGA_MOODLE.md).
+Quedan pendientes la revisión e integración de R6 y QA, la captura del CD del sprint completo, el tag `v1.1.0` y la entrega en Moodle. Los pasos de publicación están en [README.md](README.md) y la evidencia actual en [ENTREGA_MOODLE.md](ENTREGA_MOODLE.md).
