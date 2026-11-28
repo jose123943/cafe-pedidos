@@ -77,14 +77,15 @@ def test_api_rechaza_un_cupon_desconocido():
     assert respuesta.json() == {"detail": "Cupón inválido"}
 
 
-def test_api_acepta_diez_unidades_repartidas_en_lineas():
+def test_api_aplica_el_limite_de_diez_por_producto():
     respuesta = cliente.post("/api/pedidos/total", json=[
         {"codigo": "TINTO", "cantidad": 6},
         {"codigo": "TINTO", "cantidad": 4},
+        {"codigo": "PANDEBONO", "cantidad": 1},
     ])
 
     assert respuesta.status_code == 200
-    assert respuesta.json() == {"subtotal": 30_000, "descuento": 0, "total": 30_000}
+    assert respuesta.json() == {"subtotal": 33_500, "descuento": 0, "total": 33_500}
 
 
 @pytest.mark.parametrize("cantidades", [(11,), (6, 5)])
