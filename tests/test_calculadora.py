@@ -34,6 +34,31 @@ def test_producto_inexistente_es_invalido():
         calculadora.calcular([Item("TE_VERDE", 1)])
 
 
+@pytest.mark.parametrize("items", [
+    [Item("TINTO", 10)],
+    [Item("TINTO", 6), Item("TINTO", 4)],
+], ids=["una-linea", "varias-lineas"])
+def test_hasta_diez_unidades_del_mismo_producto_son_validas(items):
+    resumen = calculadora.calcular(items)
+
+    assert resumen.subtotal == 30_000
+
+
+def test_el_limite_se_aplica_a_cada_producto_por_separado():
+    resumen = calculadora.calcular([Item("TINTO", 10), Item("PANDEBONO", 10)])
+
+    assert resumen.subtotal == 65_000
+
+
+@pytest.mark.parametrize("items", [
+    [Item("TINTO", 11)],
+    [Item("TINTO", 6), Item("TINTO", 5)],
+], ids=["una-linea", "varias-lineas"])
+def test_mas_de_diez_unidades_identifica_el_producto_invalido(items):
+    with pytest.raises(PedidoInvalido, match="^Máximo 10 unidades de TINTO$"):
+        calculadora.calcular(items)
+
+
 def test_justo_en_el_umbral_hay_descuento():  # R3: 50.000 exactos
     r = calculadora.calcular([
         Item("CAFE_CASA", 1),   # 32.000

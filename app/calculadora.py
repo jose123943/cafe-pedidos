@@ -8,6 +8,7 @@ from app import menu
 UMBRAL_DESCUENTO = 50_000
 CODIGO_CUPON = "CAFE10"
 DESCUENTO_CUPON = 10_000
+MAXIMO_POR_PRODUCTO = 10
 CAFE_DE_LA_CASA = "CAFE_CASA"
 MARTES = 1  # date.weekday(): lunes = 0, martes = 1
 
@@ -42,12 +43,19 @@ class CalculadoraPedido:
             raise PedidoInvalido("El pedido no tiene productos")
         es_martes = self.hoy().weekday() == MARTES
         subtotal = 0
+        cantidades: dict[str, int] = {}
         for item in items:
             if item.cantidad < 1:
                 raise PedidoInvalido(f"Cantidad inválida para {item.codigo}")
             producto = menu.buscar(item.codigo)
             if producto is None:
                 raise PedidoInvalido(f"No existe el producto {item.codigo}")
+            acumulado = cantidades.get(item.codigo, 0) + item.cantidad
+            if acumulado > MAXIMO_POR_PRODUCTO:
+                raise PedidoInvalido(
+                    f"Máximo {MAXIMO_POR_PRODUCTO} unidades de {item.codigo}"
+                )
+            cantidades[item.codigo] = acumulado
             subtotal += self._precio_del_dia(producto, es_martes) * item.cantidad
         descuento = subtotal // 10 if subtotal >= UMBRAL_DESCUENTO else 0
         if cupon is not None:
