@@ -2,7 +2,7 @@
 
 ## Estado del sprint
 
-La versión candidata reúne R4, R5, R6 y las pruebas de integración de QA. La suite local pasó 34 pruebas. El despliegue de preparación verificó `fc0d6e3` en Render. Para cerrar la publicación de las historias faltan los PR y las revisiones del equipo que exige `main`. [Código completo de la candidata](https://github.com/jose123943/cafe-pedidos/tree/integracion/entrega-candidata) · [CI de la candidata](https://github.com/jose123943/cafe-pedidos/actions/workflows/ci.yml?query=branch%3Aintegracion%2Fentrega-candidata)
+La versión candidata reúne R4, R5, R6 y las pruebas de integración de QA. Pasaron 34 pruebas en local y en GitHub Actions. El despliegue de preparación verificó `fc0d6e3` en Render. Para cerrar la publicación de las historias faltan los PR y las revisiones del equipo que exige `main`. [Código completo de la candidata](https://github.com/jose123943/cafe-pedidos/tree/integracion/entrega-candidata) · [PR de validación #8](https://github.com/jose123943/cafe-pedidos/pull/8) · [CI con 34 pruebas correctas](https://github.com/jose123943/cafe-pedidos/actions/runs/46164064216/job/141037575970)
 
 ## Integrantes
 

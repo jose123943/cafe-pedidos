@@ -72,7 +72,7 @@ En GitHub, Luis abre R4 con `Closes #2` y José revisa. Endy abre R5 con `Closes
 
 ## Rúbrica y cierre
 
-La rama `integracion/entrega-candidata` conserva las tres historias y QA del ensayo con las ramas publicadas, más las capturas y la documentación reciente. Volvieron a pasar 34 pruebas en local. El código, las pruebas y la configuración Docker coinciden con el ensayo que pasó en Windows y Linux. [Candidata](https://github.com/jose123943/cafe-pedidos/tree/integracion/entrega-candidata) · [Comprobaciones de CI](https://github.com/jose123943/cafe-pedidos/actions/workflows/ci.yml?query=branch%3Aintegracion%2Fentrega-candidata) · [Resolución del conflicto](https://github.com/jose123943/cafe-pedidos/commit/36f1e3ab70d702b7fb749d13d844926577f0610c)
+La rama `integracion/entrega-candidata` conserva las tres historias y QA del ensayo con las ramas publicadas, más las capturas y la documentación reciente. Pasaron 34 pruebas en local y en GitHub Actions en `a54c24e`. El código, las pruebas y la configuración Docker coinciden con el ensayo que pasó en Windows y Linux. [Candidata](https://github.com/jose123943/cafe-pedidos/tree/integracion/entrega-candidata) · [PR de validación #8](https://github.com/jose123943/cafe-pedidos/pull/8) · [Comprobaciones de CI](https://github.com/jose123943/cafe-pedidos/actions/runs/46164064216/job/141037575970) · [Resolución del conflicto](https://github.com/jose123943/cafe-pedidos/commit/36f1e3ab70d702b7fb749d13d844926577f0610c)
 
 | Criterio grupal | Evidencia actual | Para completar el criterio |
 | --- | --- | --- |
