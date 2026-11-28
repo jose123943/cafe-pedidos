@@ -1,8 +1,9 @@
-from datetime import date
+from datetime import UTC, date, datetime
 
 import pytest
 
-from app.calculadora import CalculadoraPedido, Item, PedidoInvalido
+from app import calculadora as modulo_calculadora
+from app.calculadora import CalculadoraPedido, Item, PedidoInvalido, Resumen
 
 # Día fijo: lunes 2 de noviembre de 2026.
 # Así la prueba da el mismo resultado cualquier día que se ejecute.
@@ -117,3 +118,33 @@ def test_el_descuento_r3_se_calcula_sobre_el_precio_del_martes():  # R3 + R4
     r = calculadora_martes.calcular([Item("CAFE_CASA", 2)])
     assert r.subtotal == 32_000   # 2 x 16.000
     assert r.descuento == 0       # ya no llega a 50.000
+
+
+def test_el_umbral_r3_se_alcanza_con_el_subtotal_promocional():
+    resumen = calculadora_martes.calcular([Item("CAFE_CASA", 2), Item("TINTO", 6)])
+
+    assert resumen == Resumen(subtotal=50_000, descuento=5_000, total=45_000)
+
+
+def test_la_promocion_usa_el_dia_de_bogota_cuando_en_utc_es_martes(monkeypatch):
+    class FechaFija(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            martes_utc = datetime(2026, 11, 3, 2, tzinfo=UTC)
+            return martes_utc.astimezone(tz or UTC)
+
+    monkeypatch.setattr(modulo_calculadora, "datetime", FechaFija)
+
+    assert CalculadoraPedido().calcular([Item("CAFE_CASA", 1)]).subtotal == 32_000
+
+
+def test_todas_las_lineas_usan_el_mismo_dia_si_el_pedido_cruza_la_medianoche():
+    fechas = iter([LUNES, MARTES])
+    calculadora_medianoche = CalculadoraPedido(hoy=lambda: next(fechas))
+
+    resumen = calculadora_medianoche.calcular([
+        Item("CAFE_CASA", 1),
+        Item("CAFE_CASA", 1),
+    ])
+
+    assert resumen == Resumen(subtotal=64_000, descuento=6_400, total=57_600)
