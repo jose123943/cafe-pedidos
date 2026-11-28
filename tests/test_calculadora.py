@@ -56,6 +56,44 @@ def test_poco_antes_del_umbral_no_hay_descuento():  # R3: 49.500
     assert r.descuento == 0
 
 
+def test_cafe10_se_acumula_despues_del_descuento_r3():
+    resumen = calculadora.calcular([
+        Item("CAFE_CASA", 1),
+        Item("CAPUCHINO", 2),
+        Item("TINTO", 1),
+    ], cupon="CAFE10")
+
+    assert resumen.subtotal == 50_000
+    assert resumen.descuento == 15_000
+    assert resumen.total == 35_000
+
+
+@pytest.mark.parametrize(("items", "subtotal"), [
+    ([Item("TINTO", 2), Item("PANDEBONO", 1)], 9_500),
+    ([Item("TINTO", 1), Item("PANDEBONO", 2)], 10_000),
+])
+def test_cafe10_no_descuenta_mas_que_el_valor_del_pedido(items, subtotal):
+    resumen = calculadora.calcular(items, cupon="CAFE10")
+
+    assert resumen.subtotal == subtotal
+    assert resumen.descuento == subtotal
+    assert resumen.total == 0
+
+
+@pytest.mark.parametrize("cupon", ["ABC", ""])
+def test_un_cupon_desconocido_es_invalido(cupon):
+    with pytest.raises(PedidoInvalido, match="^Cupón inválido$"):
+        calculadora.calcular([Item("TINTO", 2)], cupon=cupon)
+
+
+def test_el_pedido_sin_cupon_conserva_su_total():
+    resumen = calculadora.calcular([Item("TINTO", 2)], cupon=None)
+
+    assert resumen.subtotal == 6_000
+    assert resumen.descuento == 0
+    assert resumen.total == 6_000
+
+
 # --- Parte 5: HU-R4 ---
 MARTES = date(2026, 11, 3)
 calculadora_martes = CalculadoraPedido(hoy=lambda: MARTES)
