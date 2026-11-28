@@ -85,13 +85,15 @@ Cada integrante acredita 3 puntos con un PR propio integrado y 2 con una revisi�
 
 El historial registra el PR de preparación de José ya integrado y una revisión con comentario de Endy sobre ese PR. [PR de preparación](https://github.com/jose123943/cafe-pedidos/pull/1) · [Revisión de Endy](https://github.com/jose123943/cafe-pedidos/pull/1#pullrequestreview-6078780761)
 
-El 28 de noviembre se abrieron los PR de R4 y R5 desde `@jose123943` por solicitud del integrador. La contribución individual de Luis y Endy requiere un PR propio integrado.
+El 28 de noviembre, Luis abrió el PR #11 de R4 tras cerrar el #9. José registró una revisión técnica con Codex e integró el PR #11. R5 se publicó desde `@jose123943` por solicitud del integrador. [PR de Luis](https://github.com/jose123943/cafe-pedidos/pull/11) · [CD de R4](https://github.com/jose123943/cafe-pedidos/actions/runs/46167296111)
+
+En el PR de QA se documentó la comprobación del máximo por producto en un pedido mixto. La prueba ampliada detectó en local un tope incorrecto aplicado al pedido entero. En la versión candidata, el pedido de diez tintos y un pandebono pasó junto con las 33 pruebas restantes. [Revisión](https://github.com/jose123943/cafe-pedidos/pull/7#pullrequestreview-6099133455) · [Ajuste](https://github.com/jose123943/cafe-pedidos/commit/cd47e2fea622bed5dfd50b5d3b162c01aa509c45)
 
 | Historia | Estado de GitHub | Acción pendiente |
 | --- | --- | --- |
-| R4 | PR #9 con `Closes #2` y 15 pruebas correctas. [PR de R4](https://github.com/jose123943/cafe-pedidos/pull/9) · [CI](https://github.com/jose123943/cafe-pedidos/actions/runs/46164729307/job/141039628410) | Obtener una aprobación de otro integrante. |
-| R5 | PR #10 con `Closes #3` y 18 pruebas correctas. [PR de R5](https://github.com/jose123943/cafe-pedidos/pull/10) · [CI](https://github.com/jose123943/cafe-pedidos/actions/runs/46164736031/job/141039649422) | Actualizarlo con `main` tras R4 y obtener una aprobación de otro integrante. |
+| R4 | PR #11 de Luis, con 15 pruebas correctas, integrado y desplegado en Render en `8adf84b`. [PR de R4](https://github.com/jose123943/cafe-pedidos/pull/11) · [CD](https://github.com/jose123943/cafe-pedidos/actions/runs/46167296111) | Verificar la regla junto con R5 y R6 en la demo final. |
+| R5 | PR #10 con `Closes #3` y 21 pruebas correctas tras actualizarlo con R4. [PR de R5](https://github.com/jose123943/cafe-pedidos/pull/10) · [CI](https://github.com/jose123943/cafe-pedidos/actions/runs/46167504947/job/141048197861) | Luis recibió la solicitud de revisión. Queda aprobar e integrar el PR desde una cuenta distinta de la del autor. |
 | R6 | PR #5 abierto con `Pruebas` en verde. | Actualizarlo con `main` tras R4 y R5, y registrar la revisión de Endy. [PR de R6](https://github.com/jose123943/cafe-pedidos/pull/5) |
-| QA | Alex abrió el Issue #6 y el PR #7. El PR ya incluye `Closes #6`. `Pruebas` registró un fallo sobre la base. [PR de QA](https://github.com/jose123943/cafe-pedidos/pull/7) | Actualizar la rama tras las historias, verificar CI y obtener la aprobación. |
+| QA | Alex abrió el Issue #6 y el PR #7, que incluye `Closes #6` y la prueba ampliada de R6. [PR de QA](https://github.com/jose123943/cafe-pedidos/pull/7) | Actualizar la rama tras las historias, verificar CI y obtener la aprobación. |
 
-Quedan pendientes la integración y las revisiones humanas de las tres historias y de QA, la captura del CD del sprint completo, el tag `v1.1.0` y la entrega en Moodle. Los pasos de publicación están en [README.md](README.md) y los espacios de evidencia en [ENTREGA_MOODLE.md](ENTREGA_MOODLE.md).
+Quedan pendientes la revisión e integración de R5, R6 y QA, la captura del CD del sprint completo, el tag `v1.1.0` y la entrega en Moodle. Los pasos de publicación están en [README.md](README.md) y la evidencia actual en [ENTREGA_MOODLE.md](ENTREGA_MOODLE.md).
