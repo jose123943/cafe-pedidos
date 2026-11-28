@@ -2,7 +2,9 @@
 
 ## Estado del sprint
 
-La versión candidata reúne R4, R5, R6 y las pruebas de integración de QA. Pasaron 34 pruebas en local y en GitHub Actions. El despliegue de preparación verificó `fc0d6e3` en Render. Para cerrar la publicación de las historias faltan los PR y las revisiones del equipo que exige `main`. [Código completo de la candidata](https://github.com/jose123943/cafe-pedidos/tree/integracion/entrega-candidata) · [PR de validación #8](https://github.com/jose123943/cafe-pedidos/pull/8) · [CI con 34 pruebas correctas](https://github.com/jose123943/cafe-pedidos/actions/runs/46164064216/job/141037575970)
+La versión candidata reúne R4, R5, R6 y las pruebas de integración de QA. Pasaron 34 pruebas en local y en GitHub Actions. El despliegue de preparación verificó `fc0d6e3` en Render. [Código completo de la candidata](https://github.com/jose123943/cafe-pedidos/tree/integracion/entrega-candidata) · [PR de validación #8](https://github.com/jose123943/cafe-pedidos/pull/8) · [CI con 34 pruebas correctas](https://github.com/jose123943/cafe-pedidos/actions/runs/46164064216/job/141037575970)
+
+Los tres PR de historias están abiertos desde la cuenta del integrador y tienen `Pruebas` en verde. Alex abrió el PR de QA, que ya está vinculado a su Issue. Para publicar el sprint faltan las revisiones del equipo, la integración por PR y la verificación del despliegue final. [R4 · PR #9](https://github.com/jose123943/cafe-pedidos/pull/9) · [R5 · PR #10](https://github.com/jose123943/cafe-pedidos/pull/10) · [R6 · PR #5](https://github.com/jose123943/cafe-pedidos/pull/5) · [QA · PR #7](https://github.com/jose123943/cafe-pedidos/pull/7)
 
 ## Integrantes
 

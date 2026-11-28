@@ -1,6 +1,6 @@
 # Auditoría final · Café La Montaña
 
-Verificación del 26 de noviembre de 2026. En el ensayo local, `integracion/sprint` reúne la preparación, las tres historias y las pruebas HTTP. El commit `81ef0d5` contiene la importación de `cafe-pedidos.zip` que sirvió de base. Las ramas de cada historia se conservan para abrir los PR y los commits de preparación automatizada están identificados como Codex.
+En el ensayo local del 26 de noviembre de 2026, `integracion/sprint` reúne la preparación, las tres historias y las pruebas HTTP. El commit `81ef0d5` contiene la importación de `cafe-pedidos.zip` que sirvió de base. Los PR conservan las ramas de cada historia. Los commits de preparación automatizada están identificados como Codex.
 
 En GitHub, Endy revisó, comentó e integró el PR de preparación. El CD verificó en Render el commit de merge `fc0d6e3` 58 segundos después de la integración. La rama de QA se actualizó con ese `main` y la suite local repitió los seis fallos esperados de integración. [PR de preparación](https://github.com/jose123943/cafe-pedidos/pull/1) · [CD de ese commit](https://github.com/jose123943/cafe-pedidos/actions/runs/45873428249) · [Captura del CD de preparación](docs/evidencias/cd-preparacion-verde.png)
 
@@ -56,13 +56,13 @@ En la copia local, `reportes/evidencias/ensayo-github-conflicto-r6.txt` contiene
 
 La comparación local con `git merge-tree --write-tree --name-only` combinó R4 `290d64d` con R5 `5a8657a` sin conflictos. Al combinar R6 `52314da` con cualquiera de esas ramas, Git marcó `app/calculadora.py`. El resultado sirve de base para discutir el orden de integración en la retrospectiva.
 
-En GitHub, Luis abre R4 con `Closes #2` y José revisa. Endy abre R5 con `Closes #3` y Luis revisa. Tras integrar R4 y R5, se actualiza R6 con el `main` de GitHub y Endy revisa su PR. Alex abre el PR de QA para la última integración. [R4](https://github.com/jose123943/cafe-pedidos/issues/2) · [R5](https://github.com/jose123943/cafe-pedidos/issues/3) · [PR de R6](https://github.com/jose123943/cafe-pedidos/pull/5)
+El orden previsto para integrar es R4, R5, R6 y QA. Tras integrar R4 y R5, se actualiza R6 con el `main` de GitHub y se aplica la resolución de `app/calculadora.py` que pasó las pruebas en el ensayo. [Resolución del conflicto](https://github.com/jose123943/cafe-pedidos/commit/36f1e3ab70d702b7fb749d13d844926577f0610c)
 
 ## Verificación del pipeline y del contenedor
 
 | Área | Resultado comprobado en local | Pendiente en la plataforma |
 | --- | --- | --- |
-| CI | Configurado para PR hacia `main`, job `Pruebas`, dependencias de desarrollo y reporte JUnit con `always()`. La suite devolvió código 1 en las ejecuciones rojas y 0 en las verdes. | El PR de preparación pasó `Pruebas` y `main` lo exige junto con una aprobación. Quedan los checks de las tres historias y del PR de QA. |
+| CI | Configurado para PR hacia `main`, job `Pruebas`, dependencias de desarrollo y reporte JUnit con `always()`. La suite devolvió código 1 en las ejecuciones rojas y 0 en las verdes. | `main` exige `Pruebas` en verde y una aprobación. Hay que volver a ejecutar las pruebas al actualizar las ramas con los merges anteriores. |
 | CD | Trigger de push a `main`, reutilización de CI con `needs: pruebas` y despliegue con `GITHUB_SHA`. Se comprobó el POST con un hook local emulado, el rechazo de un SHA distinto y el reintento tras recibir HTTP 503 en un arranque en frío emulado. | GitHub Actions desplegó la preparación con el secreto y la variable configurados. Queda verificar el SHA del sprint completo en Render. |
 | Docker | `docker build --check .` sin advertencias y `docker build --tag cafe-pedidos:sprint-local .` exitoso. La API respondió en 8000 y con `PORT=9876`. Se comprobó el UID 10001 y la imagen sin pytest ni la carpeta `tests/`. | Construir desde el Git SHA en el Web Service de Render. |
 | API en contenedor | `/health`, `/info`, `/api/menu`, `/docs` y el parámetro opcional `cupon` en OpenAPI. Se comprobó el precio del día de Bogotá, un pedido de 50.000 COP con cupón y los HTTP 400 por cupón o cantidad inválidos. | Ejecutar la demo y guardar evidencias desde `/docs` en producción. |
@@ -77,19 +77,21 @@ La rama `integracion/entrega-candidata` conserva las tres historias y QA del ens
 | Criterio grupal | Evidencia actual | Para completar el criterio |
 | --- | --- | --- |
 | Historias funcionando · 5 puntos | R4, R5 y R6 comprobadas en pruebas y en Docker local. | Verificar las tres historias en la API publicada. |
-| Pruebas · 5 puntos | Pruebas por criterio, valores límite, fechas fijas y cobertura HTTP por historia. | Guardar los checks y el reporte de GitHub Actions. |
-| Pipeline · 5 puntos | CI/CD preparado y comandos de deploy y humo verificados en local. | Proteger `main`, integrar por PR y guardar el último CD exitoso. |
-| Proceso de equipo · 5 puntos | Historial `test` antes de `feat` y un conflicto real resuelto en el ensayo local. | Abrir los Issues y PR, obtener revisiones con comentarios y cerrar la retrospectiva. |
+| Pruebas · 5 puntos | Pruebas por criterio, valores límite, fechas fijas y cobertura HTTP por historia. | Guardar el resultado de GitHub Actions en el commit integrado. |
+| Pipeline · 5 puntos | `main` protegida y CD de preparación verificado en Render. | Integrar por PR y guardar el CD exitoso del sprint completo. |
+| Proceso de equipo · 5 puntos | Issues y PR abiertos, historial `test` antes de `feat` y un conflicto real resuelto en el ensayo local. | Obtener revisiones con comentarios y cerrar la retrospectiva. |
 
-Cada integrante acredita 3 puntos con un PR propio integrado y 2 con una revisión con comentario en el PR de otra persona. El integrador abre R6, revisa R4 y configura GitHub y Render. Desarrollo 1 abre R4 y revisa R5 y el PR de QA. Desarrollo 2 abre R5 y revisa R6. QA/PO abre el PR de integración, revisa las pruebas de las historias y conduce la demo. Cada autor hace sus acciones desde su cuenta y otra persona integra su PR.
+Cada integrante acredita 3 puntos con un PR propio integrado y 2 con una revisión con comentario en el PR de otra persona. Otra persona integra el PR. Las responsabilidades iniciales fueron R4 para Luis, R5 para Endy, R6 y CI/CD para José, y pruebas HTTP y demo para Alex.
 
 El historial registra el PR de preparación de José ya integrado y una revisión con comentario de Endy sobre ese PR. [PR de preparación](https://github.com/jose123943/cafe-pedidos/pull/1) · [Revisión de Endy](https://github.com/jose123943/cafe-pedidos/pull/1#pullrequestreview-6078780761)
 
+El 28 de noviembre se abrieron los PR de R4 y R5 desde `@jose123943` por solicitud del integrador. La contribución individual de Luis y Endy requiere un PR propio integrado.
+
 | Historia | Estado de GitHub | Acción pendiente |
 | --- | --- | --- |
-| R4 | Rama publicada e Issue #2 abierto. | Luis abre su PR con `Closes #2` y José lo revisa. [Issue de R4](https://github.com/jose123943/cafe-pedidos/issues/2) |
-| R5 | Rama publicada e Issue #3 abierto. | Endy abre su PR con `Closes #3` y Luis lo revisa después de la actualización con R4. [Issue de R5](https://github.com/jose123943/cafe-pedidos/issues/3) |
+| R4 | PR #9 con `Closes #2` y 15 pruebas correctas. [PR de R4](https://github.com/jose123943/cafe-pedidos/pull/9) · [CI](https://github.com/jose123943/cafe-pedidos/actions/runs/46164729307/job/141039628410) | Obtener una aprobación de otro integrante. |
+| R5 | PR #10 con `Closes #3` y 18 pruebas correctas. [PR de R5](https://github.com/jose123943/cafe-pedidos/pull/10) · [CI](https://github.com/jose123943/cafe-pedidos/actions/runs/46164736031/job/141039649422) | Actualizarlo con `main` tras R4 y obtener una aprobación de otro integrante. |
 | R6 | PR #5 abierto con `Pruebas` en verde. | Actualizarlo con `main` tras R4 y R5, y registrar la revisión de Endy. [PR de R6](https://github.com/jose123943/cafe-pedidos/pull/5) |
-| QA | Alex abrió el Issue #6 y el PR #7. `Pruebas` registró un fallo sobre la base. | Alex agrega `Closes #6`, actualiza la rama tras las historias y registra una revisión ajena. Luis revisa su PR con CI en verde. [PR de QA](https://github.com/jose123943/cafe-pedidos/pull/7) |
+| QA | Alex abrió el Issue #6 y el PR #7. El PR ya incluye `Closes #6`. `Pruebas` registró un fallo sobre la base. [PR de QA](https://github.com/jose123943/cafe-pedidos/pull/7) | Actualizar la rama tras las historias, verificar CI y obtener la aprobación. |
 
 Quedan pendientes la integración y las revisiones humanas de las tres historias y de QA, la captura del CD del sprint completo, el tag `v1.1.0` y la entrega en Moodle. Los pasos de publicación están en [README.md](README.md) y los espacios de evidencia en [ENTREGA_MOODLE.md](ENTREGA_MOODLE.md).
