@@ -72,6 +72,8 @@ En GitHub, Luis abre R4 con `Closes #2` y José revisa. Endy abre R5 con `Closes
 
 ## Rúbrica y cierre
 
+La rama `integracion/entrega-candidata` conserva las tres historias y QA del ensayo con las ramas publicadas, más las capturas y la documentación reciente. Volvieron a pasar 34 pruebas en local. El código, las pruebas y la configuración Docker coinciden con el ensayo que pasó en Windows y Linux. [Candidata](https://github.com/jose123943/cafe-pedidos/tree/integracion/entrega-candidata) · [Comprobaciones de CI](https://github.com/jose123943/cafe-pedidos/actions/workflows/ci.yml?query=branch%3Aintegracion%2Fentrega-candidata) · [Resolución del conflicto](https://github.com/jose123943/cafe-pedidos/commit/36f1e3ab70d702b7fb749d13d844926577f0610c)
+
 | Criterio grupal | Evidencia actual | Para completar el criterio |
 | --- | --- | --- |
 | Historias funcionando · 5 puntos | R4, R5 y R6 comprobadas en pruebas y en Docker local. | Verificar las tres historias en la API publicada. |
@@ -82,5 +84,12 @@ En GitHub, Luis abre R4 con `Closes #2` y José revisa. Endy abre R5 con `Closes
 Cada integrante acredita 3 puntos con un PR propio integrado y 2 con una revisión con comentario en el PR de otra persona. El integrador abre R6, revisa R4 y configura GitHub y Render. Desarrollo 1 abre R4 y revisa R5 y el PR de QA. Desarrollo 2 abre R5 y revisa R6. QA/PO abre el PR de integración, revisa las pruebas de las historias y conduce la demo. Cada autor hace sus acciones desde su cuenta y otra persona integra su PR.
 
 El historial registra el PR de preparación de José ya integrado y una revisión con comentario de Endy sobre ese PR. [PR de preparación](https://github.com/jose123943/cafe-pedidos/pull/1) · [Revisión de Endy](https://github.com/jose123943/cafe-pedidos/pull/1#pullrequestreview-6078780761)
+
+| Historia | Estado de GitHub | Acción pendiente |
+| --- | --- | --- |
+| R4 | Rama publicada e Issue #2 abierto. | Luis abre su PR con `Closes #2` y José lo revisa. [Issue de R4](https://github.com/jose123943/cafe-pedidos/issues/2) |
+| R5 | Rama publicada e Issue #3 abierto. | Endy abre su PR con `Closes #3` y Luis lo revisa después de la actualización con R4. [Issue de R5](https://github.com/jose123943/cafe-pedidos/issues/3) |
+| R6 | PR #5 abierto con `Pruebas` en verde. | Actualizarlo con `main` tras R4 y R5, y registrar la revisión de Endy. [PR de R6](https://github.com/jose123943/cafe-pedidos/pull/5) |
+| QA | Alex abrió el Issue #6 y el PR #7. `Pruebas` registró un fallo sobre la base. | Alex agrega `Closes #6`, actualiza la rama tras las historias y registra una revisión ajena. Luis revisa su PR con CI en verde. [PR de QA](https://github.com/jose123943/cafe-pedidos/pull/7) |
 
 Quedan pendientes la integración y las revisiones humanas de las tres historias y de QA, la captura del CD del sprint completo, el tag `v1.1.0` y la entrega en Moodle. Los pasos de publicación están en [README.md](README.md) y los espacios de evidencia en [ENTREGA_MOODLE.md](ENTREGA_MOODLE.md).
